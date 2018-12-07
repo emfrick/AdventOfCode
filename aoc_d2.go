@@ -69,6 +69,7 @@ func AocD2P2(filename string) (string, error) {
 	scanner := bufio.NewScanner(file)
 
 	var words []string
+	var solution string
 	// Read each line
 	for scanner.Scan() {
 
@@ -82,7 +83,7 @@ func AocD2P2(filename string) (string, error) {
 
 		a := words[i]
 
-		for j := 1; j < len(words); j++ {
+		for j := (i + 1); j < len(words); j++ {
 
 			b := words[j]
 
@@ -90,19 +91,22 @@ func AocD2P2(filename string) (string, error) {
 			bLetters := strings.Split(b, "")
 
 			differs := 0
+			sameLetters := []string{}
 			for i, letter := range aLetters {
 				if letter != bLetters[i] {
 					differs++
+				} else {
+					sameLetters = append(sameLetters, letter)
 				}
 			}
 
 			if differs == 1 {
-				return fmt.Sprintf("Day 2, Problem 2 Solution: '%s' differs from '%s' by %d", a, b, differs), nil
+				solution = strings.Join(sameLetters, "")
 			}
 
 		}
 
 	}
 
-	return "", nil
+	return fmt.Sprintf("Day 2, Problem 2 Solution: %s", solution), nil
 }
