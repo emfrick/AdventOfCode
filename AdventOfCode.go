@@ -43,10 +43,10 @@ var InputForDay = [...]string{
 // AocFunctions define the array of callable
 // functions paired with their inputs
 var AocFunctions = [...]AdventOfCode{
-	{AocD1P1, InputForDay[1]},
-	{AocD1P2, InputForDay[1]},
-	{AocD2P1, InputForDay[2]},
-	{AocD2P2, InputForDay[2]},
+	// {AocD1P1, InputForDay[1]},
+	// {AocD1P2, InputForDay[1]},
+	// {AocD2P1, InputForDay[2]},
+	// {AocD2P2, InputForDay[2]},
 	{AocD3P1, InputForDay[3]},
 	{AocD3P2, InputForDay[3]},
 }
