@@ -30,6 +30,7 @@ func AocD3P1(filename string) (string, error) {
 	scanner := bufio.NewScanner(file)
 
 	// Read each line
+	maxX, maxY := 0, 0
 	for scanner.Scan() {
 
 		// Grab the text
@@ -37,10 +38,66 @@ func AocD3P1(filename string) (string, error) {
 
 		square := tokenize(line)
 
-		fmt.Println(square)
+		x := square.x + square.width
+		y := square.y + square.height
+
+		if maxX <= x {
+			maxX = x
+		}
+
+		if maxY <= y {
+			maxY = y
+		}
 	}
 
-	return fmt.Sprintf("Day 3, Problem 1 Solution: "), nil
+	file.Close()
+
+	// Open the file
+	file, err = getFile(filename)
+
+	if err != nil {
+		return "", err
+	}
+
+	defer file.Close()
+
+	// Create the 2D array
+	fabric := make([][]int, maxX+1)
+	for i := 0; i <= maxX; i++ {
+		fabric[i] = make([]int, maxY+1)
+		for j := 0; j <= maxY; j++ {
+			fabric[i][j] = 0
+		}
+	}
+
+	// Get a scanner to read line-by-line
+	scanner = bufio.NewScanner(file)
+
+	// Read each line
+	for scanner.Scan() {
+
+		// Grab the text
+		line := scanner.Text()
+
+		square := tokenize(line)
+
+		for i := 0; i < square.width; i++ {
+			for j := 0; j < square.height; j++ {
+				fabric[square.x+i][square.y+j]++
+			}
+		}
+	}
+
+	sum := 0
+	for i := 0; i < maxX; i++ {
+		for j := 0; j < maxY; j++ {
+			if fabric[i][j] >= 2 {
+				sum++
+			}
+		}
+	}
+
+	return fmt.Sprintf("Day 3, Problem 1 Solution: %d", sum), nil
 }
 
 // AocD3P2 conforms to the AdventOfCodeInterface
